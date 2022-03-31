@@ -11450,3 +11450,15 @@ footer.footer {
   font-size:0.4em;
 }
 
+.victory{
+  background: #5dd5f0;
+}
+.defeat{
+  background: #e67373;
+}
+.soloq-rank-icon{
+  max-width: 104px;
+  max-height: 104px;
+}
+
+

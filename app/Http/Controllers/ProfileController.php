@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use \Datetime;
 
 
 class ProfileController extends Controller
@@ -11,7 +12,7 @@ class ProfileController extends Controller
     
     private function get_api_key()
     {
-        return 'RGAPI-7a2f8eef-8ae5-45ed-991b-34b1bec63aa5';
+        return 'RGAPI-7f7d9f39-89c0-4217-a47e-b094c61bd9fc';
     }
 
     private function get_summoner_info($server,$summoner)
@@ -20,17 +21,18 @@ class ProfileController extends Controller
        return json_decode(Http::get("https://".$server.".api.riotgames.com/lol/summoner/v4/summoners/by-name/{$summoner}?api_key=".$this->get_api_key()), true);
     }
 
-    private function get_match_list($server,$summoner_info)
+    private function get_match_list($server,$summoner_info,$count)
     {
         if($server === 'eun1' || $server === 'euw1') $global_server='europe';
-        return json_decode(Http::get("https://{$global_server}.api.riotgames.com/lol/match/v5/matches/by-puuid/{$summoner_info['puuid']}/ids?type=ranked&start=0&count=20&api_key=".$this->get_api_key()), true);
+        return json_decode(Http::get("https://{$global_server}.api.riotgames.com/lol/match/v5/matches/by-puuid/{$summoner_info['puuid']}/ids?type=ranked&start=0&count={$count}&api_key=".$this->get_api_key()), true);
+    }
+    private function get_latest_ddragon_icon_api_version()
+    {
+        return json_decode(Http::get('https://ddragon.leagueoflegends.com/api/versions.json'), true)['0'];
     }
 
-    private function get_icon_link($summoner_info,$overview)
+    private function get_icon_link($summoner_info,$overview,$latestVersion)
     {
-        //index[0] means latest version
-        $dd_icon_api_version = json_decode(Http::get('https://ddragon.leagueoflegends.com/api/versions.json'), true);
-        $latestVersion = $dd_icon_api_version['0'];
 
         $profileIconId = $summoner_info['profileIconId'];
         $championPlayed = $overview['championName'];
@@ -42,6 +44,7 @@ class ProfileController extends Controller
             '7' => 'SummonerHeal',
             '11' => 'SummonerSmite',
             '12' => 'SummonerTeleport',
+            '14'=> 'SummonerDot'
         ];
         $summonerSpell1 = $summonerSpellArray[$overview['summonerSpell1']];
         $summonerSpell2 = $summonerSpellArray[$overview['summonerSpell2']];
@@ -80,21 +83,26 @@ class ProfileController extends Controller
     }
 
     //array of most useful info from match
-    private function get_match_overview($match,$summonerInfo)
+    private function get_match_overview($match,$summonerInfo,$latestVersion)
     {
         $global_server = 'europe';
         $match_info = json_decode(Http::get("https://{$global_server}.api.riotgames.com/lol/match/v5/matches/{$match}?api_key=".$this->get_api_key()),true);
+        
+        date_default_timezone_set('Europe/Warsaw');
+        $timestamp = $match_info['info']['gameEndTimestamp'];
+
         $overview = [
             'queueType'=>$match_info['info']['gameMode'],
-            'timestamp'=>$match_info['info']['gameCreation'],
+            'timestamp'=>$timestamp,
             'game_length'=>$match_info['info']['gameDuration'],
 
         ];
         
-
+        //all participants foreach
         $playerId = 0;
         foreach($match_info['info']['participants'] as $participant)
-        {
+        {  
+            //desired player foreach
             if($participant['puuid'] === ($summonerInfo['puuid']))
             {
                 if($participant['win'])
@@ -130,30 +138,43 @@ class ProfileController extends Controller
                 'summonerName'=>$participant['summonerName']
             ];
             $overview['playerInfo']["$playerId"] = $playerInfo;
+            
             $playerId++;
         }
+        $overview['iconLinks'] = $this->get_icon_link($summonerInfo,$overview,$latestVersion);
+        
+        
         return $overview;
+    }
+
+    private function getLeagueEntries($summoner_info)
+    {
+        
+        return json_decode(Http::get("https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/{$summoner_info['id']}?api_key={$this->get_api_key()}"), true);
     }
 
 
     public function show($server,$summoner)
     {
+        $latestVersion = $this->get_latest_ddragon_icon_api_version();
         $summoner_info = $this->get_summoner_info($server,$summoner);
-
-        $match_list = $this->get_match_list($server,$summoner_info);
+        $league_entries = $this->getLeagueEntries($summoner_info);
+        $matchList = $this->get_match_list($server,$summoner_info,4);
 
         
-
-        $icon_link = $this->get_icon_link($summoner_info,$overview);
-
+        
         $overviews = array();
-        for ($i=0;$i<5;$i++)
+        foreach($matchList as $match)
         {
-            $overview = $this->get_match_overview($match_list["$i"],$summoner_info);
-            array_push($overviews,$overview);
+            $overviews[] = $this->get_match_overview($match,$summoner_info,$latestVersion);
         }
+        $summoner_info['league_entries'] = $league_entries;
+        
+        $summoner_info['league_entries'][0]['soloq_winrate'] = ($summoner_info['league_entries'][0]['wins'] / ($summoner_info['league_entries'][0]['wins'] + $summoner_info['league_entries'][0]['losses']) )*100;
+        $summoner_info['league_entries'][1]['flexq_winrate'] = ($summoner_info['league_entries'][1]['wins'] / ($summoner_info['league_entries'][1]['wins'] + $summoner_info['league_entries'][1]['losses']) )*100;
+        
 
-        return view("show",compact('summoner_info','icon_link','overviews'));
+        return view("show",compact('summoner_info','overviews'));
 
     }
 
