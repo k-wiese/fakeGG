@@ -11427,6 +11427,9 @@ footer.footer {
   font-family:'Roboto';
 
 }
+.font-size-2em{
+  font-size:2em;
+}
 .font-size-11em{
   font-size:1.1em;
 }
@@ -11454,10 +11457,12 @@ footer.footer {
 }
 
 .victory{
-  background: #5dd5f0;
+  background: rgba(59, 206, 255, 0.6)
+
 }
 .defeat{
-  background: #e67373;
+  background: rgba(173, 75, 75, 0.6)
+
 }
 .soloq-rank-icon{
   max-width: 104px;
@@ -11467,6 +11472,11 @@ footer.footer {
 .flexq-rank-icon{
   max-width: 64px;
   max-height: 64px;
+}
+.bg-normal{
+  
+    
+  background: rgba(219,233, 255, 0.2)
 }
 
 

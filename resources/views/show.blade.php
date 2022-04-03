@@ -10,28 +10,20 @@
            
                 {{-- Top profile bar  --}}
                 <div class="row">
-                    <div class="col-sm-3">
-                        <img src="{{$overviews[0]['iconLinks']['profileIconId']}}" class="img-thumbnail rounded main-icon mx-auto d-block" alt="Summoner icon">
-                    </div>
-                    <div class="col-sm-3 ">
 
-                        <div class="row ">
-                            <div class="text-white font-size-1em">
-                                <b>{{  $summoner_info['name'];}}</b>
-                                <br> Ladder Rank 92,278
-                            </div>
-                            
-                        </div>
-                        <br>
-                        <br>
-                        <div class="row d-flex flex-row">
-                            <div>
-                                <button class="btn btn-primary btn-sm">Update</button>
-                                <button class="btn btn-secondary btn-sm">Tier Graph</button>
-                            </div>
-                            
-                        </div>
+                    <div class="col-sm-3 d-flex justify-content-end">
+                        <img src="{{$overviews[0]['iconLinks']['profileIconId']}}" class="img-thumbnail rounded main-icon  " alt="Summoner icon">
                     </div>
+
+                    <div class="col-sm-3 align-items-end d-flex">
+
+                        <div class="text-black font-size-2em ">
+                            <b>{{  $summoner_info['name'];}}</b>
+                            <br> Rank 92,278
+                        </div> 
+
+                    </div>
+
                 </div>
 
                 {{-- divider --}}
@@ -40,14 +32,16 @@
                  <div class="row">
 
                      
-                         <div class="text-white col-sm-3">
-                             <div class="row border align-items-center">
+                         <div class="text-black col-sm-3 ">
+
+                             <div class="row border border-dark align-items-center bg-normal p-1">
+
                                 <div class="col-sm-4">
-                                    <img class="soloq-rank-icon " src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][0]['tier']}.png") }}" alt="GOLD">
+                                    <img class="soloq-rank-icon mx-auto d-block" src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][0]['tier']}.png") }}" alt="GOLD">
                                 </div>
 
-                                <div class="col-sm-8 justify-content-center">
-                                    <div class="font-size-09em">
+                                <div class="col-sm-6 justify-content-center">
+                                    <div class="font-size-08em">
                                         Ranked Solo
                                     </div>
                                     <div class="font-size-11em">
@@ -57,20 +51,22 @@
                                         {{$summoner_info['league_entries'][0]['leaguePoints']}} LP / {{$summoner_info['league_entries'][0]['wins']}}W {{$summoner_info['league_entries'][0]['losses']}}L
                                     </div>
                                     <div class="font-size-08em">
-                                        Win Rate {{round($summoner_info['league_entries'][0]['soloq_winrate'])}}%
+                                        Win Rate {{round($summoner_info['league_entries'][0]['winrate'])}}%
                                     </div>
-                                    <div class="font-size-09em">
+                                    <div class="font-size-08em">
                                         Penisy Barmistrzyka
                                     </div>
                                 </div>
                              </div>
 
-                             <div class="row border align-items-center  p-2">
-                                <div class="col-sm-3">
-                                    <img class="flexq-rank-icon" src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][1]['tier']}.png") }}" alt="GOLD">
+                             
+
+                             <div class="row border border-top-0 border-dark align-items-center p-2 bg-normal ">
+                                <div class="col-sm-4 ">
+                                    <img class="flexq-rank-icon mx-auto d-block" src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][1]['tier']}.png") }}" alt="GOLD">
                                 </div>
 
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <div class="font-size-06em">
                                         Ranked Flex
                                     </div>
@@ -81,7 +77,7 @@
                                         {{$summoner_info['league_entries'][1]['leaguePoints']}} LP / {{$summoner_info['league_entries'][1]['wins']}}W {{$summoner_info['league_entries'][1]['losses']}}L
                                     </div>
                                     <div class="font-size-06em">
-                                        Win Rate {{round($summoner_info['league_entries'][1]['flexq_winrate'])}}%
+                                        Win Rate {{round($summoner_info['league_entries'][1]['winrate'])}}%
                                     </div>
                                     <div class="font-size-06em">
                                         Penisy Barmistrzyka
@@ -89,32 +85,32 @@
                                 </div>
                             </div>
 
-                            <div class="row border">
+                            {{-- <div class="row border border-dark">
                                  played champs
                             </div>
 
-                            <div class="row border">
+                            <div class="row border border-dark">
                                  winrate past 7 days
                             </div>
 
                             <div class="row border">
                                  duoq'ss
-                            </div>
+                            </div> --}}
                          </div>
 
                          
                          <div class="text-black col-sm-9">
                             {{-- single match overview --}}
                             @foreach ($overviews as $overview)
-                           <div class="row border text-center {{ strtolower($overview['outcome']) }}" >
+                           <div class="row border border-bottom-0 border-dark text-center p-2 align-items-center {{ strtolower($overview['outcome']) }}" >
                                <div class="col-md-1 my-auto font-size-06em">
 
-                                   <p>{{$overview['queueType']}}</p>
+                                   {{$overview['queueType']}}
 
-                                   <p>{{gmdate('d/m/Y',$overview['timestamp'])}}</p>
+                                   {{gmdate('d/m/Y',$overview['timestamp'])}}
                                    <hr>
-                                   <p><b>{{$overview['outcome']}}</b></p>
-                                   <p>{{gmdate('i:s',$overview['game_length'])}}</p>
+                                   <b>{{$overview['outcome']}}</b>
+                                   {{gmdate('i:s',$overview['game_length'])}}
 
 
                                </div>
@@ -165,43 +161,52 @@
                                </div>
                                <div class="col-md-1 my-auto">
                                    <div class="font-size-07em">
-                                       <p>{{$overview['kills']}}/{{$overview['deaths']}}/{{$overview['assists']}}</p>
+                                       {{$overview['kills']}}/{{$overview['deaths']}}/{{$overview['assists']}}
 
                                    </div>
                                    <div class="font-size-05em">
-                                       <p>{{$overview['kda']}} KDA</p>
+                                       {{$overview['kda']}} KDA
                                        
                                    </div>
                                </div>
                                <div class="col-md-2 my-auto font-size-06em">
-                                   <p>LEVEL {{$overview['champLevel']}}</p>
-                                   <p>{{$overview['cs']}} CS</p>
-                                   <p>{{$overview['killParticipation']}}% KP</p>
-                                   <p> average tier</p>
+                                   <div class="p-1">
+                                    LEVEL {{$overview['champLevel']}}
+                                   </div>
+                                   <div class="">
+                                    {{$overview['cs']}} CS 
+                                   </div>
+                                   <div class="">
+                                    {{$overview['killParticipation']}}% KP 
+                                   </div>
+                                   <div class="p-1">
+                                    average tier
+                                   </div>
+   
                                </div>
-                               <div class="col-md-2 my-auto font-size-06em">
+                               <div class="col-md-2 font-size-06em">
                                    <div class="row">
-                                       <div class="col-md-3">
+                                       <div class="col-md-2 ">
                                            <div>
-                                               <img class="rounded summoner-spell" src="{{$overview['iconLinks']['item0']}}" alt="">
+                                               <img class="border border-secondary rounded summoner-spell" src="{{$overview['iconLinks']['item0']}}" alt="">
                                            </div>
                                        </div>
 
-                                       <div class="col-md-3">
+                                       <div class="col-md-2 ">
                                            <div>
-                                               <img class="rounded summoner-spell" src="{{$overview['iconLinks']['item1']}}" alt="">
+                                               <img class="border border-secondary rounded summoner-spell" src="{{$overview['iconLinks']['item1']}}" alt="">
                                            </div>
                                        </div>
 
-                                       <div class="col-md-3">
+                                       <div class="col-md-2 ">
                                            <div>
-                                               <img class="rounded summoner-spell" src="{{$overview['iconLinks']['item2']}}" alt="">
+                                               <img class="border border-secondary rounded summoner-spell" src="{{$overview['iconLinks']['item2']}}" alt="">
                                            </div>
                                        </div>
 
-                                       <div class="col-md-3">
+                                       <div class="col-md-2 ">
                                            <div>
-                                               <img class="rounded summoner-spell" src="{{$overview['iconLinks']['item6']}}" alt="">
+                                               <img class="border border-secondary rounded summoner-spell" src="{{$overview['iconLinks']['item6']}}" alt="">
                                            </div>
                                        </div>
 
@@ -209,39 +214,37 @@
                                    </div>
 
                                    <div class="row">
-                                       <div class="col-md-3">
+                                       <div class="col-md-2">
                                            <div>
                                                <img class="rounded summoner-spell" src="{{$overview['iconLinks']['item4']}}" alt="">
                                            </div>
                                        </div>
 
-                                       <div class="col-md-3">
+                                       <div class="col-md-2">
                                            <div>
                                                <img class="rounded summoner-spell" src="{{$overview['iconLinks']['item3']}}" alt="">
                                            </div>
                                        </div>
 
-                                       <div class="col-md-3">
+                                       <div class="col-md-2">
                                            <div>
                                                <img class="rounded summoner-spell" src="{{$overview['iconLinks']['item5']}}" alt="">
                                            </div>
                                        </div>
 
-                                       <div class="col-md-3">
+                                       <div class="col-md-2">
                                            <div>
                                                <img class="rounded summoner-spell" src="https://s-lol-web.op.gg/static/images/icon/common/icon-buildred-p.png?v=1648630753917" alt="">
                                            </div>
                                        </div>
-
+                                    
                                        
                                    </div>
-                                   <div>
-                                       <p>Control wards placed: {{$overview['controlWardsPlaced']}}</p>
-                                   </div>
+                                  
                                </div>
                                <div class="col-md-2 my-auto font-size-06em">
 
-                                   <div class="row">
+                                   <div class="row  ">
                                        <div class="col-md-3">
                                            <img class="participant"src="{{$overview['iconLinks']['blueTop']}}" alt="">
                                        </div>
@@ -250,7 +253,7 @@
                                        </div>
                                    </div>
 
-                                   <div class="row">
+                                   <div class="row ">
                                        <div class="col-md-3">
                                            <img class="participant"src="{{$overview['iconLinks']['blueJungle']}}" alt="">
                                        </div>
@@ -259,7 +262,7 @@
                                        </div>
                                    </div>
 
-                                   <div class="row">
+                                   <div class="row ">
                                        <div class="col-md-3">
                                            <img class="participant"src="{{$overview['iconLinks']['blueMid']}}" alt="">
                                        </div>
@@ -268,7 +271,7 @@
                                        </div>
                                    </div>
 
-                                   <div class="row">
+                                   <div class="row ">
                                        <div class="col-md-3">
                                            <img class="participant"src="{{$overview['iconLinks']['blueAdc']}}" alt="">
                                        </div>
@@ -334,6 +337,8 @@
                                    </div>
                                </div>
                            </div>
+                           
+                           
                            @endforeach
                         </div>
                         

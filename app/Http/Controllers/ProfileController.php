@@ -12,7 +12,7 @@ class ProfileController extends Controller
     
     private function get_api_key()
     {
-        return 'RGAPI-cf5478f2-e28e-4328-804b-50dcbd4dc554';
+        return 'RGAPI-f557d618-40f9-4499-898c-bc1283db39dc';
     }
 
     private function get_summoner_info($server,$summoner)
@@ -152,6 +152,15 @@ class ProfileController extends Controller
         
         return json_decode(Http::get("https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/{$summoner_info['id']}?api_key={$this->get_api_key()}"), true);
     }
+    private function setDefaultInfo(&$summoner_info,$flexq_or_soloq)
+    {
+        $summoner_info['league_entries'][$flexq_or_soloq]['winrate'] = 0;
+        $summoner_info['league_entries'][$flexq_or_soloq]['rank'] = '';
+        $summoner_info['league_entries'][$flexq_or_soloq]['leaguePoints'] = 0;
+        $summoner_info['league_entries'][$flexq_or_soloq]['wins'] = 0;
+        $summoner_info['league_entries'][$flexq_or_soloq]['losses'] = 0;
+        $summoner_info['league_entries'][$flexq_or_soloq]['tier'] = 'Unranked';
+    }
 
 
     public function show($server,$summoner)
@@ -168,22 +177,26 @@ class ProfileController extends Controller
         {
             $overviews[] = $this->get_match_overview($match,$summoner_info,$latestVersion);
         }
+        
         $summoner_info['league_entries'] = $league_entries;
         
-        $summoner_info['league_entries'][0]['soloq_winrate'] = ($summoner_info['league_entries'][0]['wins'] / ($summoner_info['league_entries'][0]['wins'] + $summoner_info['league_entries'][0]['losses']) )*100;
+        if(isset($summoner_info['league_entries'][0]))
+        {
+        $summoner_info['league_entries'][0]['winrate'] = ($summoner_info['league_entries'][0]['wins'] / ($summoner_info['league_entries'][0]['wins'] + $summoner_info['league_entries'][0]['losses']) )*100;
+        }
+        else
+        {
+           $this->setDefaultInfo($summoner_info,0);
+        }
+
         if(isset($summoner_info['league_entries'][1]))
         {
-        $summoner_info['league_entries'][1]['flexq_winrate'] = ($summoner_info['league_entries'][1]['wins'] / ($summoner_info['league_entries'][1]['wins'] + $summoner_info['league_entries'][1]['losses']) )*100;
+            $summoner_info['league_entries'][1]['winrate'] = ($summoner_info['league_entries'][1]['wins'] / ($summoner_info['league_entries'][1]['wins'] + $summoner_info['league_entries'][1]['losses']) )*100;
 
         }
         else
         {
-            $summoner_info['league_entries'][1]['flexq_winrate'] = 0;
-            $summoner_info['league_entries'][1]['rank'] = 'Unranked';
-            $summoner_info['league_entries'][1]['leaguePoints'] = 0;
-            $summoner_info['league_entries'][1]['wins'] = 0;
-            $summoner_info['league_entries'][1]['losses'] = 0;
-            $summoner_info['league_entries'][1]['tier'] = 'Unranked';
+            $this->setDefaultInfo($summoner_info,1);
         }
         
 
