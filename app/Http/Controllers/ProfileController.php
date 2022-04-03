@@ -12,7 +12,7 @@ class ProfileController extends Controller
     
     private function get_api_key()
     {
-        return 'RGAPI-7f7d9f39-89c0-4217-a47e-b094c61bd9fc';
+        return 'RGAPI-cf5478f2-e28e-4328-804b-50dcbd4dc554';
     }
 
     private function get_summoner_info($server,$summoner)
@@ -171,11 +171,23 @@ class ProfileController extends Controller
         $summoner_info['league_entries'] = $league_entries;
         
         $summoner_info['league_entries'][0]['soloq_winrate'] = ($summoner_info['league_entries'][0]['wins'] / ($summoner_info['league_entries'][0]['wins'] + $summoner_info['league_entries'][0]['losses']) )*100;
+        if(isset($summoner_info['league_entries'][1]))
+        {
         $summoner_info['league_entries'][1]['flexq_winrate'] = ($summoner_info['league_entries'][1]['wins'] / ($summoner_info['league_entries'][1]['wins'] + $summoner_info['league_entries'][1]['losses']) )*100;
+
+        }
+        else
+        {
+            $summoner_info['league_entries'][1]['flexq_winrate'] = 0;
+            $summoner_info['league_entries'][1]['rank'] = 'Unranked';
+            $summoner_info['league_entries'][1]['leaguePoints'] = 0;
+            $summoner_info['league_entries'][1]['wins'] = 0;
+            $summoner_info['league_entries'][1]['losses'] = 0;
+            $summoner_info['league_entries'][1]['tier'] = 'Unranked';
+        }
         
 
         return view("show",compact('summoner_info','overviews'));
 
     }
-
 }

@@ -41,49 +41,49 @@
 
                      
                          <div class="text-white col-sm-3">
-                             <div class="row border">
+                             <div class="row border align-items-center">
                                 <div class="col-sm-4">
-                                    <img class="soloq-rank-icon" src="https://opgg-static.akamaized.net/images/medals/gold_4.png?image=q_auto&amp;image=q_auto,f_webp,w_auto&amp;v=1648729914784" alt="GOLD">
+                                    <img class="soloq-rank-icon " src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][0]['tier']}.png") }}" alt="GOLD">
                                 </div>
 
-                                <div class="col-sm-8">
-                                    <div>
+                                <div class="col-sm-8 justify-content-center">
+                                    <div class="font-size-09em">
                                         Ranked Solo
                                     </div>
-                                    <div>
+                                    <div class="font-size-11em">
                                         {{$summoner_info['league_entries'][0]['tier'].' '.$summoner_info['league_entries'][0]['rank'];}}
                                     </div>
-                                    <div>
+                                    <div class="font-size-08em">
                                         {{$summoner_info['league_entries'][0]['leaguePoints']}} LP / {{$summoner_info['league_entries'][0]['wins']}}W {{$summoner_info['league_entries'][0]['losses']}}L
                                     </div>
-                                    <div>
+                                    <div class="font-size-08em">
                                         Win Rate {{round($summoner_info['league_entries'][0]['soloq_winrate'])}}%
                                     </div>
-                                    <div>
+                                    <div class="font-size-09em">
                                         Penisy Barmistrzyka
                                     </div>
                                 </div>
                              </div>
 
-                             <div class="row border">
-                                <div class="col-sm-4">
-                                    <img class="soloq-rank-icon" src="https://opgg-static.akamaized.net/images/medals/gold_4.png?image=q_auto&amp;image=q_auto,f_webp,w_auto&amp;v=1648729914784" alt="GOLD">
+                             <div class="row border align-items-center  p-2">
+                                <div class="col-sm-3">
+                                    <img class="flexq-rank-icon" src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][1]['tier']}.png") }}" alt="GOLD">
                                 </div>
 
-                                <div class="col-sm-8">
-                                    <div>
+                                <div class="col-sm-9">
+                                    <div class="font-size-06em">
                                         Ranked Flex
                                     </div>
-                                    <div>
+                                    <div class="font-size-08em">
                                         {{$summoner_info['league_entries'][1]['tier'].' '.$summoner_info['league_entries'][1]['rank'];}}
                                     </div>
-                                    <div>
+                                    <div class="font-size-06em">
                                         {{$summoner_info['league_entries'][1]['leaguePoints']}} LP / {{$summoner_info['league_entries'][1]['wins']}}W {{$summoner_info['league_entries'][1]['losses']}}L
                                     </div>
-                                    <div>
+                                    <div class="font-size-06em">
                                         Win Rate {{round($summoner_info['league_entries'][1]['flexq_winrate'])}}%
                                     </div>
-                                    <div>
+                                    <div class="font-size-06em">
                                         Penisy Barmistrzyka
                                     </div>
                                 </div>
