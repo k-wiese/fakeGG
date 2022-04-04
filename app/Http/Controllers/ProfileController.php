@@ -85,7 +85,11 @@ class ProfileController extends Controller
     //array of most useful info from match
     private function get_match_overview($match,$summonerInfo,$latestVersion)
     {
-        $global_server = 'europe';
+        $server = strtolower($match[0].$match[1]);
+
+        if($server === 'eu' || $server === 'ru') $global_server = 'europe';
+        if($server === 'jp' || $server === 'kr') $global_server = 'asia';
+        if($server === 'la' || $server === 'na' || $server === 'br' ) $global_server = 'americas';
         $match_info = json_decode(Http::get("https://{$global_server}.api.riotgames.com/lol/match/v5/matches/{$match}?api_key=".$this->get_api_key()),true);
         
         date_default_timezone_set('Europe/Warsaw');
@@ -163,12 +167,12 @@ class ProfileController extends Controller
     }
 
 
-    public function show($server,$summoner)
+    public function show($server,$summoner,$match_count = 10)
     {
         $latestVersion = $this->get_latest_ddragon_icon_api_version();
         $summoner_info = $this->get_summoner_info($server,$summoner);
         $league_entries = $this->getLeagueEntries($summoner_info);
-        $matchList = $this->get_match_list($server,$summoner_info,4);
+        $matchList = $this->get_match_list($server,$summoner_info,$match_count);
 
         
         

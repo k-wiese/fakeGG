@@ -5,11 +5,11 @@
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
-                        <div class="text-center text-white">
+                        <div class="text-center text-white font-roboto">
                             <!-- Page heading-->
                             <h1 class="mb-5">This page is using official riotgames API</h1>
 
-                            <form action="/search" method="post">
+                            <form action="{{url('search')}}" method="post">
                                 @csrf
                                 
                                 <div class="input-group">

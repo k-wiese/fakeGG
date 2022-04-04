@@ -11359,10 +11359,10 @@ header.masthead h1, header.masthead .h1 {
 .call-to-action {
   position: relative;
   background-color: #343a40;
-  background: url("../assets/img/bg-masthead.jpg") no-repeat center center;
-  background-size: cover;
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+  background: url("../assets/img/bg-masthead.jpg") no-repeat;
+
+  background-size: 100%;
+  
 }
 .call-to-action:before {
   content: "";
@@ -11379,6 +11379,12 @@ footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
+
+
+
+
+
+
 
 .css-1k7wk8z {
   width: 100%;

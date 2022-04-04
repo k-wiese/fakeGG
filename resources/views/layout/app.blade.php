@@ -19,11 +19,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
         
     </head>
-    <body>
+    <body class="font-roboto">
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="#!">fake.GG</a>
+                <a class="navbar-brand" href="{{url('')}}">fake.GG</a>
             </div>
         </nav>
         

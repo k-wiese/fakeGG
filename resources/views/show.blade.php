@@ -17,9 +17,12 @@
 
                     <div class="col-sm-3 align-items-end d-flex">
 
-                        <div class="text-black font-size-2em ">
-                            <b>{{  $summoner_info['name'];}}</b>
-                            <br> Rank 92,278
+                        <div class="text-black ">
+                            <div class="font-size-2em">
+                                {{  $summoner_info['name'];}}
+                            </div>
+                            Rank <i>92,278 </i>
+ 
                         </div> 
 
                     </div>
@@ -29,12 +32,12 @@
                 {{-- divider --}}
                 <hr class="solid">
 
-                 <div class="row">
+                 <div class="row d-flex justify-content-center">
 
                      
                          <div class="text-black col-sm-3 ">
 
-                             <div class="row border border-dark align-items-center bg-normal p-1">
+                             <div class="row border border-right-0 border-dark align-items-center bg-normal p-1">
 
                                 <div class="col-sm-4">
                                     <img class="soloq-rank-icon mx-auto d-block" src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][0]['tier']}.png") }}" alt="GOLD">
@@ -54,14 +57,14 @@
                                         Win Rate {{round($summoner_info['league_entries'][0]['winrate'])}}%
                                     </div>
                                     <div class="font-size-08em">
-                                        Penisy Barmistrzyka
+                                        Pasterze Barmistrzyka
                                     </div>
                                 </div>
                              </div>
 
                              
 
-                             <div class="row border border-top-0 border-dark align-items-center p-2 bg-normal ">
+                             <div class="row border border-top-0 border-left-0 border-dark align-items-center p-2 bg-normal ">
                                 <div class="col-sm-4 ">
                                     <img class="flexq-rank-icon mx-auto d-block" src="{{ asset("assets/emblems/Emblem_{$summoner_info['league_entries'][1]['tier']}.png") }}" alt="GOLD">
                                 </div>
@@ -80,7 +83,7 @@
                                         Win Rate {{round($summoner_info['league_entries'][1]['winrate'])}}%
                                     </div>
                                     <div class="font-size-06em">
-                                        Penisy Barmistrzyka
+                                        Pasterze Barmistrzyka
                                     </div>
                                 </div>
                             </div>
@@ -99,10 +102,10 @@
                          </div>
 
                          
-                         <div class="text-black col-sm-9">
+                         <div class="text-black col-sm-8 mx-2 ">
                             {{-- single match overview --}}
                             @foreach ($overviews as $overview)
-                           <div class="row border border-bottom-0 border-dark text-center p-2 align-items-center {{ strtolower($overview['outcome']) }}" >
+                           <div class="row border border-bottom-0 border-dark text-center p-2 align-items-center {{ strtolower($overview['outcome']) }} " >
                                <div class="col-md-1 my-auto font-size-06em">
 
                                    {{$overview['queueType']}}
@@ -127,13 +130,13 @@
                                        <div class="col-md-6">
 
                                            <div class="row">
-                                               <div class="col-md-6">
+                                               <div class="col-md-4">
                                                    <div>
                                                        <img class="rounded summoner-spell" src="{{$overview['iconLinks']['summonerSpell1']}}" alt="">
                                                    </div>
                                                </div>
 
-                                               <div class="col-md-6">
+                                               <div class="col-md-4">
                                                    <div>
                                                        <img class="rounded rune" src="https://opgg-static.akamaized.net/images/lol/perk/8010.png?image=q_auto,f_webp,w_auto&v=1648102888115" alt="">
                                                    </div>
@@ -141,14 +144,14 @@
                                            </div>
 
                                            <div class="row">
-                                               <div class="col-md-6">
+                                               <div class="col-md-4">
                                                    <div>
                                                        <img class="rounded summoner-spell" src="{{$overview['iconLinks']['summonerSpell2']}}" alt="">
 
                                                    </div>
                                                </div>
 
-                                               <div class="col-md-6">
+                                               <div class="col-md-4">
                                                    <div>
                                                        <img class="rounded rune" src="https://opgg-static.akamaized.net/images/lol/perkStyle/8300.png?image=q_auto,f_webp,w_auto&v=1648102888115" alt="">
                                                    </div>
@@ -340,6 +343,9 @@
                            
                            
                            @endforeach
+
+                      
+                           </div>
                         </div>
                         
                      
