@@ -12,7 +12,7 @@ class ProfileController extends Controller
     
     private function get_api_key()
     {
-        return 'RGAPI-f557d618-40f9-4499-898c-bc1283db39dc';
+        return 'RGAPI-b92411a8-77ff-44a5-a19a-3fb0fee94f70';
     }
 
     private function get_summoner_info($server,$summoner)
@@ -23,7 +23,7 @@ class ProfileController extends Controller
 
     private function get_match_list($server,$summoner_info,$count)
     {
-        if($server === 'eun1' || $server === 'euw1') $global_server='europe';
+        if($server === 'eun1' or $server === 'euw1') $global_server='europe';
         return json_decode(Http::get("https://{$global_server}.api.riotgames.com/lol/match/v5/matches/by-puuid/{$summoner_info['puuid']}/ids?type=ranked&start=0&count={$count}&api_key=".$this->get_api_key()), true);
     }
     private function get_latest_ddragon_icon_api_version()
@@ -87,9 +87,9 @@ class ProfileController extends Controller
     {
         $server = strtolower($match[0].$match[1]);
 
-        if($server === 'eu' || $server === 'ru') $global_server = 'europe';
-        if($server === 'jp' || $server === 'kr') $global_server = 'asia';
-        if($server === 'la' || $server === 'na' || $server === 'br' ) $global_server = 'americas';
+        if($server === 'eu' or $server === 'ru') $global_server = 'europe';
+        if($server === 'jp' or $server === 'kr') $global_server = 'asia';
+        if($server === 'la' or $server === 'na' or $server === 'br' ) $global_server = 'americas';
         $match_info = json_decode(Http::get("https://{$global_server}.api.riotgames.com/lol/match/v5/matches/{$match}?api_key=".$this->get_api_key()),true);
         
         date_default_timezone_set('Europe/Warsaw');

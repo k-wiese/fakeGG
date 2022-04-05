@@ -6,7 +6,7 @@
          <!-- Masthead-->
          <header class="masthead font-roboto">
             
-             <div class="container position-relative">
+             <div class="container-fluid position-relative">
            
                 {{-- Top profile bar  --}}
                 <div class="row">
