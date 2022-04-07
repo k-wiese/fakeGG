@@ -12,7 +12,7 @@ class ProfileController extends Controller
     
     private function get_api_key()
     {
-        return 'RGAPI-b92411a8-77ff-44a5-a19a-3fb0fee94f70';
+        return 'RGAPI-2bb9d886-f351-4ac6-83d3-3b5d7709d002';
     }
 
     private function get_summoner_info($server,$summoner)

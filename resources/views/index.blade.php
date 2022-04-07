@@ -9,6 +9,8 @@
                             <!-- Page heading-->
                             <h1 class="mb-5">This page is using official riotgames API</h1>
 
+                            <div id="overview"></div>
+
                             <form action="{{url('search')}}" method="post">
                                 @csrf
                                 
