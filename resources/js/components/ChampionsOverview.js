@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 
 function Overview() {
 
+    var summonerDto = fetch('https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/Barmistrzyk?api_key=RGAPI-cd213904-c5fd-4914-b520-4e71cb4243ba');
 
     return (
         <React.Fragment>
@@ -15,7 +16,7 @@ function Overview() {
          </Tabs>
     </Box>
         <TabPanel value={value} index={0}>
-        Item One
+        summonerDto
         </TabPanel>
         <TabPanel value={value} index={1}>
         Item Two
@@ -25,6 +26,10 @@ function Overview() {
         </TabPanel>
         </React.Fragment>
     );
+}
+
+function FetchData(){
+    return '';
 }
 
 export default Overview;

@@ -86,7 +86,11 @@
                                         Pasterze Barmistrzyka
                                     </div>
                                 </div>
+                                
                             </div>
+                            <div id="overview" class="row border border-top-0 border-left-0 border-dark align-items-center p-2 bg-normal">
+                            </div>
+                            
 
                             {{-- <div class="row border border-dark">
                                  played champs
