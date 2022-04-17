@@ -167,7 +167,7 @@ class ProfileController extends Controller
     }
 
 
-    public function show($server,$summoner,$match_count = 10)
+    public function show($server,$summoner,$match_count = 7)
     {
         $latestVersion = $this->get_latest_ddragon_icon_api_version();
         $summoner_info = $this->get_summoner_info($server,$summoner);

@@ -16,7 +16,7 @@ function Overview() {
          </Tabs>
     </Box>
         <TabPanel value={value} index={0}>
-        summonerDto
+        summonerDitto
         </TabPanel>
         <TabPanel value={value} index={1}>
         Item Two
@@ -27,11 +27,6 @@ function Overview() {
         </React.Fragment>
     );
 }
-
-function FetchData(){
-    return '';
-}
-
 export default Overview;
 
 if (document.getElementById('overview')) {
