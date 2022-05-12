@@ -88,7 +88,10 @@
                                 </div>
                                 
                             </div>
-                            <div id="example" class="row border border-top-0 border-left-0 border-dark align-items-center p-2 bg-normal">
+
+                            <div class="row border border-top-0 border-left-0 border-dark align-items-center p-2 bg-normal">
+                                <div id="basicTabs"></div>
+
                             </div>
                             
 
